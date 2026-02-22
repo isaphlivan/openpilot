@@ -1,0 +1,89 @@
+CM_ "Opel Corsa F (PSA CMP) DBC file";
+
+BO_ 182 PSA_Steering: 8 XXX
+ SG_ SteeringAngle : 7|16@0+ (0.1,0) [-3276.8|3276.7] "deg" XXX
+ SG_ SteeringRate : 23|16@0+ (1,0) [0|65535] "deg/s" XXX
+
+BO_ 218 PSA_ABS: 8 XXX
+ SG_ WheelSpeed_FL : 7|16@0+ (0.01,0) [0|250] "km/h" XXX
+ SG_ WheelSpeed_FR : 23|16@0+ (0.01,0) [0|250] "km/h" XXX
+ SG_ WheelSpeed_RL : 39|16@0+ (0.01,0) [0|250] "km/h" XXX
+ SG_ WheelSpeed_RR : 55|16@0+ (0.01,0) [0|250] "km/h" XXX
+
+BO_ 306 PSA_ESP: 8 XXX
+ SG_ YawRate : 7|16@0+ (0.01,0) [-100|100] "deg/s" XXX
+
+BO_ 246 PSA_EPS: 8 XXX
+ SG_ DriverTorque : 7|16@0+ (0.01,0) [-10|10] "Nm" XXX
+ SG_ EPS_Status : 23|4@0+ (1,0) [0|15] "" XXX
+
+BO_ 296 PSA_Accelerator: 8 XXX
+ SG_ AcceleratorPedal : 7|8@0+ (1,0) [0|100] "%" XXX
+
+BO_ 226 PSA_Brake: 8 XXX
+ SG_ BrakePressure : 7|10@0+ (1,0) [0|1000] "bar" XXX
+ SG_ BrakePressed : 17|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 608 PSA_ESP_Status: 8 XXX
+ SG_ ParkingBrake : 7|1@0+ (1,0) [0|1] "" XXX
+ SG_ ESP_Disabled : 8|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 305 PSA_Transmission: 8 XXX
+ SG_ GearPosition : 7|4@0+ (1,0) [0|15] "" XXX
+ VAL_ 305 GearPosition 1 "P" 2 "R" 3 "N" 4 "D" 5 "S" ;
+
+BO_ 489 PSA_Doors: 8 XXX
+ SG_ DoorOpen_FL : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ DoorOpen_FR : 1|1@0+ (1,0) [0|1] "" XXX
+ SG_ DoorOpen_RL : 2|1@0+ (1,0) [0|1] "" XXX
+ SG_ DoorOpen_RR : 3|1@0+ (1,0) [0|1] "" XXX
+ SG_ TrunkOpen : 4|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 568 PSA_Airbag: 8 XXX
+ SG_ SeatbeltFastened_Driver : 0|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 545 PSA_Cluster: 8 XXX
+ SG_ MetricUnits : 0|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 535 PSA_Lights: 8 XXX
+ SG_ LeftBlinker : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ RightBlinker : 1|1@0+ (1,0) [0|1] "" XXX
+ SG_ ReverseLight : 2|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 586 PSA_ACC_Status: 8 XXX
+ SG_ ACC_Status : 0|4@0+ (1,0) [0|15] "" XXX
+
+BO_ 688 PSA_ACC_Buttons: 8 XXX
+ SG_ MainSwitch : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ CancelButton : 1|1@0+ (1,0) [0|1] "" XXX
+ SG_ SetButton : 2|1@0+ (1,0) [0|1] "" XXX
+ SG_ AccelButton : 3|1@0+ (1,0) [0|1] "" XXX
+ SG_ DecelButton : 4|1@0+ (1,0) [0|1] "" XXX
+ SG_ ResumeButton : 5|1@0+ (1,0) [0|1] "" XXX
+ SG_ GapAdjustButton : 6|1@0+ (1,0) [0|1] "" XXX
+ SG_ COUNTER : 56|4@0+ (1,0) [0|15] "" XXX
+
+BO_ 424 PSA_ACC: 8 XXX
+ SG_ ACC_SetSpeed : 7|8@0+ (1,0) [0|255] "km/h" XXX
+ SG_ FCW_Active : 15|1@0+ (1,0) [0|1] "" XXX
+ SG_ AEB_Active : 16|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 876 PSA_BSM: 8 XXX
+ SG_ BSM_Left : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ BSM_Right : 1|1@0+ (1,0) [0|1] "" XXX
+
+BO_ 952 PSA_LKAS: 8 XXX
+ SG_ LKAS_Active : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ LKAS_Available : 1|1@0+ (1,0) [0|1] "" XXX
+ SG_ LKAS_Standby : 2|1@0+ (1,0) [0|1] "" XXX
+ SG_ SteerTorque : 7|12@0+ (1,0) [0|4095] "" XXX
+ SG_ SteerDirection : 8|1@0+ (1,0) [0|1] "" XXX
+ SG_ SET_ME_1 : 9|1@0+ (1,0) [0|1] "" XXX
+ SG_ COUNTER : 56|4@0+ (1,0) [0|15] "" XXX
+
+BO_ 953 PSA_LDW_HUD: 8 XXX
+ SG_ LKAS_LED_Yellow : 0|1@0+ (1,0) [0|1] "" XXX
+ SG_ LKAS_LED_Green : 1|1@0+ (1,0) [0|1] "" XXX
+ SG_ LaneStatus_Left : 3|2@0+ (1,0) [0|3] "" XXX
+ SG_ LaneStatus_Right : 5|2@0+ (1,0) [0|3] "" XXX
+ SG_ HUD_Alert : 10|4@0+ (1,0) [0|15] "" XXX
