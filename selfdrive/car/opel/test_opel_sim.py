@@ -39,8 +39,8 @@ sys.modules['opendbc.can.packer'] = MagicMock()
 sys.modules['opendbc.can.can_define'] = MagicMock()
 
 # 2. Define simulation test
-def test_sim():
-    print("Opel Corsa F Mock Simulation Testi Başlatılıyor...")
+def test_sim(candidate_name="OPEL CORSA 6TH GEN"):
+    print(f"{candidate_name} Mock Simulation Testi Başlatılıyor...")
     
     # Import our module (now that dependencies are mocked)
     try:
@@ -52,15 +52,18 @@ def test_sim():
 
     # Mock CP (CarParams)
     CP = MagicMock()
-    CP.carFingerprint = CAR.CORSA_F
+    CP.carFingerprint = candidate_name
     CP.transmissionType = car_mock.CarParams.TransmissionType.automatic
     CP.networkLocation = car_mock.CarParams.NetworkLocation.gateway
     CP.safetyConfigs = [MagicMock()]
     CP.minSteerSpeed = 0.0
     CP.pcmCruise = True
     CP.steerRateCost = 1.0
-    CP.lateralTuning.pid.kpBP = [0.]
-    CP.lateralTuning.pid.kpV = [0.6]
+    CP.lateralTuning.which = MagicMock(return_value='torque')
+    CP.lateralTuning.torque.kp = 1.0
+    CP.lateralTuning.torque.kf = 1.0
+    CP.lateralTuning.torque.ki = 0.1
+    CP.lateralTuning.torque.friction = 0.01
     CP.steerRatio = 14.7
     CP.wheelbase = 2.538
     CP.mass = 1200.0
@@ -115,4 +118,6 @@ def test_sim():
     print("Not: Bu test, mantıksal akışın ve modül yapısının doğruluğunu kanıtlar.")
 
 if __name__ == "__main__":
-    test_sim()
+    test_sim("OPEL CORSA 6TH GEN 2020+")
+    print("-" * 40)
+    test_sim("PEUGEOT 208 2ND GEN")

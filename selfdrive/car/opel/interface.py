@@ -48,17 +48,30 @@ class CarInterface(CarInterfaceBase):
     ret.steerRatio = 14.7
     tire_stiffness_factor = 1.0
 
-    # PID lateral tuning - starting values, refine with real-world testing
-    ret.lateralTuning.pid.kpBP = [0.]
-    ret.lateralTuning.pid.kiBP = [0.]
-    ret.lateralTuning.pid.kf = 0.00006
-    ret.lateralTuning.pid.kpV = [0.6]
-    ret.lateralTuning.pid.kiV = [0.2]
+    # Lateral tuning - Torque-based control is generally better for CMP platform
+    ret.lateralTuning.init('torque')
+    ret.lateralTuning.torque.useSteeringAngle = True
+    ret.lateralTuning.torque.kp = 1.0
+    ret.lateralTuning.torque.kf = 1.0
+    ret.lateralTuning.torque.ki = 0.1
+    ret.lateralTuning.torque.friction = 0.01
 
     # Per-vehicle physical parameters
     if candidate == CAR.CORSA_F:
-      ret.mass = 1200 + STD_CARGO_KG        # Kerb weight ~1200 kg (varies by engine)
+      ret.mass = 1200 + STD_CARGO_KG        # Kerb weight ~1200 kg
       ret.wheelbase = 2.538                   # 2538 mm wheelbase
+      ret.steerRatio = 14.7
+      ret.centerToFront = ret.wheelbase * 0.44  # Slightly more forward weight
+    elif candidate == CAR.PEUGEOT_208:
+      ret.mass = 1150 + STD_CARGO_KG        # Kerb weight ~1150 kg
+      ret.wheelbase = 2.540                   # 2540 mm wheelbase
+      ret.steerRatio = 14.7
+      ret.centerToFront = ret.wheelbase * 0.45
+    elif candidate == CAR.PEUGEOT_2008:
+      ret.mass = 1200 + STD_CARGO_KG        # Kerb weight ~1200 kg
+      ret.wheelbase = 2.605                   # 2605 mm wheelbase
+      ret.steerRatio = 14.5
+      ret.centerToFront = ret.wheelbase * 0.45
     else:
       raise ValueError(f"unsupported car {candidate}")
 

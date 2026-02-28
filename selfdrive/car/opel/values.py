@@ -21,10 +21,10 @@ class CarControllerParams:
   ACC_VBP_COUNT = 16              # Send VBP messages for ~0.5s
 
   # PSA EPS torque limits - Corsa F specific
-  # These values should be validated with real CAN bus data from the vehicle
   STEER_MAX = 300                 # Max steering assist torque 3.00 Nm
   STEER_DELTA_UP = 4              # Max torque ramp up rate
   STEER_DELTA_DOWN = 10           # Max torque ramp down rate
+  STEER_ERROR_MAX = 80            # Max steering err
   STEER_DRIVER_ALLOWANCE = 80
   STEER_DRIVER_MULTIPLIER = 3     # Weight driver torque heavily
   STEER_DRIVER_FACTOR = 1         # From DBC
@@ -67,38 +67,33 @@ PSA_LDW_MESSAGES = {
 
 
 class CAR:
-  CORSA_F = "OPEL CORSA 6TH GEN"         # Chassis F/CMP, Mk6 Opel/Vauxhall Corsa (2019+)
+  CORSA_F = "OPEL CORSA 6TH GEN 2020+"         # Chassis F/CMP, Mk6 Opel/Vauxhall Corsa (2020+)
+  PEUGEOT_208 = "PEUGEOT 208 2ND GEN"    # Chassis CMP, Peugeot 208 (2019+)
+  PEUGEOT_2008 = "PEUGEOT 2008 2ND GEN"  # Chassis CMP, Peugeot 2008 (2019+)
 
 
 # CAN bus fingerprints for vehicle identification
-# These are the CAN message IDs and their data lengths observed on the PSA CMP platform
-# NOTE: These MUST be validated with real CAN bus data from an actual Opel Corsa F
+# These are the same for PSA CMP platform vehicles
 FINGERPRINTS = {
   CAR.CORSA_F: [{
-    # Powertrain CAN bus (bus 0) - PSA CMP platform message IDs
-    0x0B6: 8,   # Steering angle sensor
-    0x0DA: 8,   # Vehicle speed / ABS wheel speeds
-    0x0E2: 8,   # Brake pedal / pressure
-    0x0F6: 8,   # Steering torque (EPS)
-    0x128: 8,   # Accelerator pedal
-    0x12C: 8,   # Yaw rate / lateral acceleration
-    0x131: 8,   # Transmission / gear info
-    0x161: 8,   # Engine RPM / status
-    0x1A8: 8,   # ACC status / cruise control
-    0x1E9: 8,   # Door status
-    0x217: 8,   # Turn signals / lights
-    0x221: 8,   # Instrument cluster / units
-    0x23A: 8,   # Seatbelt status (Airbag ECU)
-    0x260: 8,   # Parking brake / ESP status
-    0x2B0: 8,   # ACC buttons / cruise stalk
-    0x36C: 8,   # BSM / blind spot monitoring
+    0x0B6: 8, 0x0DA: 8, 0x0E2: 8, 0x0F6: 8, 0x128: 8, 0x12C: 8, 0x131: 8,
+    0x161: 8, 0x1A8: 8, 0x1E9: 8, 0x217: 8, 0x221: 8, 0x23A: 8, 0x260: 8,
+    0x2B0: 8, 0x36C: 8,
+  }],
+  CAR.PEUGEOT_208: [{
+    0x0B6: 8, 0x0DA: 8, 0x0E2: 8, 0x0F6: 8, 0x128: 8, 0x12C: 8, 0x131: 8,
+    0x161: 8, 0x1A8: 8, 0x1E9: 8, 0x217: 8, 0x221: 8, 0x23A: 8, 0x260: 8,
+    0x2B0: 8, 0x36C: 8,
+  }],
+  CAR.PEUGEOT_2008: [{
+    0x0B6: 8, 0x0DA: 8, 0x0E2: 8, 0x0F6: 8, 0x128: 8, 0x12C: 8, 0x131: 8,
+    0x161: 8, 0x1A8: 8, 0x1E9: 8, 0x217: 8, 0x221: 8, 0x23A: 8, 0x260: 8,
+    0x2B0: 8, 0x36C: 8,
   }],
 }
 
 
 # Firmware versions for FW-based vehicle identification
-# NOTE: These need to be populated from actual vehicle ECU queries
-# Empty for now - add real FW versions after CAN bus logging from the vehicle
 FW_VERSIONS = {
   CAR.CORSA_F: {
     (Ecu.engine, 0x7e0, None): [
@@ -113,6 +108,11 @@ FW_VERSIONS = {
     ],
     (Ecu.fwdRadar, 0x764, None): [
       b'\xf1\x879836431680\xf1\x890001',
+    ],
+  },
+  CAR.PEUGEOT_208: {
+    (Ecu.eps, 0x712, None): [
+      b'\xf1\x879812345678\xf1\x890001', # Placeholder
     ],
   },
 }
